@@ -1,7 +1,8 @@
 # FE Task: Data visualization
 
-Landing page displays data visualization of all apartments
-Implementing a form to search and filter apartments. Data widgets are modified after the form submited
+Landing page displays data visualization of all apartments.
+
+Implementing a form to search and filter apartments. Data widgets are modified after the form submited.
 
 ## Getting Started
 
