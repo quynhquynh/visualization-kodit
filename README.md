@@ -33,4 +33,4 @@ Install node_modules, package 'react-router-dom' and run the page
 
 ## Deployment
 
-[Visit page](https://quynhquynh.github.io/kodit/)
+[Visit page](https://quynhquynh.github.io/visualization-kodit/)
