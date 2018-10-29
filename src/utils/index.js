@@ -1,29 +1,11 @@
 import { averagePriceSqm } from "./averagePriceSqm";
-import {
-  calcPieChart,
-  calcPieLineChart,
-  calcBarChart,
-  calcAreaChart
-} from "./visualize";
-import {
-  filterLoc,
-  filterSize,
-  filterPrice,
-  filterRoom,
-  filterYear,
-  filterOptions
-} from "./filter";
+import { visualize } from "./visualize";
+import { filter } from "./filter";
+import { checkEmpty } from "./checkEmpty";
 
 export default {
-  filterLoc,
-  filterSize,
-  filterPrice,
-  filterRoom,
-  filterYear,
-  filterOptions,
+  filter,
   averagePriceSqm,
-  calcPieChart,
-  calcPieLineChart,
-  calcBarChart,
-  calcAreaChart
+  checkEmpty,
+  visualize
 };

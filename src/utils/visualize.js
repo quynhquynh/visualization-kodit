@@ -2,8 +2,9 @@ import { filterOptions } from "./filter";
 import { filterRoom } from "./filter";
 import { averagePriceSqm } from "./averagePriceSqm";
 import { filterYear } from "./filter";
+import fields from "../fields";
 
-export const calcPieChart = (arr, balcony) => {
+const calcPieChart = (arr, balcony) => {
   const len = balcony.length;
   const copy_balcony = [...balcony];
   const num_balcony = filterOptions(arr, [], ["balcony"]).length;
@@ -21,7 +22,7 @@ export const calcPieChart = (arr, balcony) => {
   return copy_balcony;
 };
 
-export const calcPieLineChart = (arr, rooms, price_room) => {
+const calcPieLineChart = (arr, rooms, price_room) => {
   const rlen = rooms.length;
   const copy_rooms = [...rooms];
   const copy_price_room = [...price_room];
@@ -48,7 +49,7 @@ export const calcPieLineChart = (arr, rooms, price_room) => {
   };
 };
 
-export const calcBarChart = (arr, years, fields) => {
+const calcBarChart = (arr, years, fields) => {
   const len = years.length;
   const copy_years = [...years];
   const { year, opts } = fields;
@@ -74,7 +75,7 @@ export const calcBarChart = (arr, years, fields) => {
   return copy_years;
 };
 
-export const calcAreaChart = (arr, price_loc) => {
+const calcAreaChart = (arr, price_loc) => {
   const len = price_loc.length;
   const copy_price_loc = [...price_loc];
   const seen = {};
@@ -102,4 +103,20 @@ export const calcAreaChart = (arr, price_loc) => {
     });
   }
   return copy_price_loc;
+};
+
+export const visualize = (arr, state) => {
+  const { balcony, rooms, years, price_room, price_loc } = state;
+  const { copy_rooms, copy_price_room } = calcPieLineChart(
+    arr,
+    rooms,
+    price_room
+  );
+  return {
+    balcony: calcPieChart(arr, balcony),
+    rooms: copy_rooms,
+    price_room: copy_price_room,
+    years: calcBarChart(arr, years, fields),
+    price_loc: calcAreaChart(arr, price_loc)
+  };
 };

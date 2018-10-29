@@ -30,14 +30,14 @@ class Form extends PureComponent {
     const { name, value } = e.target;
     const { state } = this;
     switch (name) {
-      case "location":
-        this.setState({ [name]: value });
-        break;
-      default:
-        this.setState({
-          [name]: { ...state[name], [className]: value }
-        });
-        break;
+    case "location":
+      this.setState({ [name]: value });
+      break;
+    default:
+      this.setState({
+        [name]: { ...state[name], [className]: value }
+      });
+      break;
     }
   };
 

@@ -74,3 +74,27 @@ export const filterYear = (arr, res, value) => {
   }
   return result;
 };
+
+export const filter = (arr, obj) => {
+  let result = [];
+  const { location, room_count, built_year, size_sqm, price, options } = obj;
+  if (location) {
+    result = filterLoc(arr, location);
+  }
+  if (size_sqm.min || size_sqm.max) {
+    result = filterSize(arr, result, size_sqm);
+  }
+  if (price.min || price.max) {
+    result = filterPrice(arr, result, price);
+  }
+  if (room_count.length) {
+    result = filterRoom(arr, result, room_count);
+  }
+  if (built_year.length) {
+    result = filterYear(arr, result, built_year);
+  }
+  if (options.length) {
+    result = filterOptions(arr, result, options);
+  }
+  return result;
+};
