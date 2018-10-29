@@ -18,12 +18,12 @@ const SimpleArea = ({ data }) => {
         width={590}
         height={300}
         data={data}
-        margin={{ top: 25, right: 50, left: 0, bottom: 0 }}
+        margin={{ top: 25, right: 40, left: 20, bottom: 0 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
+        <YAxis tickFormatter={value => value.toLocaleString()} />
+        <Tooltip formatter={value => value.toLocaleString()} />
         <Area
           type="monotone"
           dataKey="min_price"

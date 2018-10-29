@@ -19,7 +19,7 @@ const SimpleLine = ({ data }) => {
         width={570}
         height={350}
         data={data}
-        margin={{ top: 60, right: 30, left: 50, bottom: 5 }}
+        margin={{ top: 60, right: 30, left: 15, bottom: 5 }}
       >
         <XAxis dataKey="name" />
         <YAxis />
