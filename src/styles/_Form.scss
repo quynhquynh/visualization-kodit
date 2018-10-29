@@ -1,0 +1,43 @@
+@import "_vars";
+
+form {
+  margin-top: 5px;
+  background: $bg-light;
+  padding: 0 10px 10px 10px;
+  @media only screen and (max-width: $break-medium) {
+    width: 70%;
+    margin: 0 auto;
+  }
+  @media only screen and (max-width: $break-large) {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  input[type="text"] {
+    display: block;
+    width: 90%;
+  }
+
+  p {
+    margin-bottom: 3px;
+  }
+
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+  }
+
+  input[type="submit"] {
+    margin-top: 10px;
+    background: $bg-dark;
+    color: $font-color;
+    text-transform: uppercase;
+    padding: 7px 20px;
+  }
+}

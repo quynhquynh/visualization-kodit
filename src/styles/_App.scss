@@ -1,0 +1,74 @@
+@import "_vars";
+
+body {
+  width: 95%;
+  margin: 0 auto;
+  .App {
+    display: grid;
+    grid-template-columns: 20% 75%;
+
+    div {
+      &:nth-child(2) {
+        display: grid;
+        grid-template-columns: 45% 45%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $break-small) {
+  body {
+    width: 100%;
+
+    .App {
+      display: flex;
+      flex-wrap: wrap;
+
+      div {
+        &:nth-child(2) {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $break-small) and (max-width: $break-medium) {
+  body {
+    width: 100%;
+
+    .App {
+      display: flex;
+      flex-wrap: wrap;
+
+      div {
+        &:nth-child(2) {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $break-medium) and (max-width: $break-large) {
+  body {
+    width: 100%;
+
+    .App {
+      display: grid;
+      grid-template-columns: 30% 65%;
+
+      div {
+        width: 100%;
+        &:nth-child(2) {
+          display: grid;
+          grid-template-columns: 100%;
+          grid-row-gap: 30px;
+        }
+      }
+    }
+  }
+}
