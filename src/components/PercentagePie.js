@@ -31,33 +31,31 @@ const renderCustomizedLabel = ({
   );
 };
 
-const PercentagePie = ({ balcony, rooms }) => {
-  return (
-    <ResponsiveContainer width="100%" height={300}>
-      <PieChart width={800} height={300}>
-        <Pie
-          isAnimationActive={false}
-          data={balcony}
-          dataKey="value"
-          outerRadius={70}
-          fill="#8884d8"
-          labelLine={false}
-          label={renderCustomizedLabel}
-        />
-        <Pie
-          isAnimationActive={false}
-          data={rooms}
-          dataKey="value"
-          outerRadius={95}
-          innerRadius={75}
-          fill="#82ca9d"
-          label
-        />
-        <Tooltip />
-      </PieChart>
-    </ResponsiveContainer>
-  );
-};
+const PercentagePie = ({ balcony, rooms }) => (
+  <ResponsiveContainer width="100%" height={300}>
+    <PieChart width={800} height={300}>
+      <Pie
+        isAnimationActive={false}
+        data={balcony}
+        dataKey="value"
+        outerRadius={70}
+        fill="#8884d8"
+        labelLine={false}
+        label={renderCustomizedLabel}
+      />
+      <Pie
+        isAnimationActive={false}
+        data={rooms}
+        dataKey="value"
+        outerRadius={95}
+        innerRadius={75}
+        fill="#82ca9d"
+        label
+      />
+      <Tooltip />
+    </PieChart>
+  </ResponsiveContainer>
+);
 
 export default PercentagePie;
 

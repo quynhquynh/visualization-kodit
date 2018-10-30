@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 import "../styles/_Form.scss";
 import fields from "../fields";
 
-import Checkbox from "../components/Checkbox";
-import TextInput from "../components/TextInput";
+import Field from "../components/Field";
 
 class Form extends PureComponent {
   constructor(props) {
@@ -67,59 +66,50 @@ class Form extends PureComponent {
   render() {
     const { loc, area, aprt_price, year, rooms, opts } = fields;
     const { location, size_sqm, price } = this.state;
+    const allFields = [
+      {
+        p: "Location:",
+        arr: loc,
+        value: location,
+        onChange: this.handleChange
+      },
+      {
+        p: "Number of rooms:",
+        arr: rooms,
+        className: "flex",
+        handleCheck: this.handleCheck
+      },
+      {
+        p: "Built year:",
+        arr: year,
+        handleCheck: this.handleCheck
+      },
+      {
+        p: "Area:",
+        arr: area,
+        className: "grid",
+        value: size_sqm,
+        onChange: this.handleChange
+      },
+      {
+        p: "Price:",
+        arr: aprt_price,
+        className: "grid",
+        value: price,
+        onChange: this.handleChange
+      },
+      {
+        p: "Other options",
+        arr: opts,
+        handleCheck: this.handleCheck
+      }
+    ];
+
     return (
       <form onSubmit={this.handleSubmit}>
-        <TextInput {...loc} value={location} onChange={this.handleChange} />
-        <Fragment>
-          <p>Number of rooms:</p>
-          <div className="flex">
-            {rooms.map((room, i) => (
-              <Checkbox key={i} {...room} handleCheck={this.handleCheck} />
-            ))}
-          </div>
-        </Fragment>
-        <Fragment>
-          <p>Built year:</p>
-          <div>
-            {year.map((year, i) => (
-              <Checkbox key={i} {...year} handleCheck={this.handleCheck} />
-            ))}
-          </div>
-        </Fragment>
-        <Fragment>
-          <p>Area:</p>
-          <div className="grid">
-            {area.map((size, i) => (
-              <TextInput
-                key={i}
-                {...size}
-                value={size_sqm}
-                onChange={this.handleChange}
-              />
-            ))}
-          </div>
-        </Fragment>
-        <Fragment>
-          <p>Price:</p>
-          <div className="grid">
-            {aprt_price.map((p, i) => (
-              <TextInput
-                key={i}
-                {...p}
-                value={price}
-                onChange={this.handleChange}
-              />
-            ))}
-          </div>
-        </Fragment>
-        <Fragment>
-          <p>Other options:</p>
-          <div>
-            {opts.map((opt, i) => (
-              <Checkbox key={i} {...opt} handleCheck={this.handleCheck} />
-            ))}
-          </div>
-        </Fragment>
+        {allFields.map((field, i) => (
+          <Field key={i} {...field} />
+        ))}
         <Fragment>
           <input type="submit" value="Search data" />
         </Fragment>

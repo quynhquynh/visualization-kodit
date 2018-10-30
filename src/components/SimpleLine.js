@@ -12,30 +12,28 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const SimpleLine = ({ data }) => {
-  return (
-    <ResponsiveContainer width="100%" height={350}>
-      <LineChart
-        width={570}
-        height={350}
-        data={data}
-        margin={{ top: 60, right: 30, left: 15, bottom: 5 }}
-      >
-        <XAxis dataKey="name" />
-        <YAxis />
-        <CartesianGrid strokeDasharray="3 3" />
-        <Tooltip />
-        <Legend wrapperStyle={{ left: "35%" }} />
-        <Line
-          type="monotone"
-          dataKey="price_sqm"
-          stroke="#17becf"
-          activeDot={{ r: 9 }}
-        />
-      </LineChart>
-    </ResponsiveContainer>
-  );
-};
+const SimpleLine = ({ data }) => (
+  <ResponsiveContainer width="100%" height={350}>
+    <LineChart
+      width={570}
+      height={350}
+      data={data}
+      margin={{ top: 60, right: 30, left: 15, bottom: 5 }}
+    >
+      <XAxis dataKey="name" />
+      <YAxis />
+      <CartesianGrid strokeDasharray="3 3" />
+      <Tooltip />
+      <Legend wrapperStyle={{ left: "35%" }} />
+      <Line
+        type="monotone"
+        dataKey="price_sqm"
+        stroke="#17becf"
+        activeDot={{ r: 9 }}
+      />
+    </LineChart>
+  </ResponsiveContainer>
+);
 
 export default SimpleLine;
 

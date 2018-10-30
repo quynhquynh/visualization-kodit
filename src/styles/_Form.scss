@@ -4,11 +4,7 @@ form {
   margin-top: 5px;
   background: $bg-light;
   padding: 0 10px 10px 10px;
-  @media only screen and (min-width: $break-small) and (max-width: $break-medium) {
-    width: 70%;
-    margin: 0 auto;
-  }
-  @media only screen and (min-width: $break-medium) and (max-width: $break-large) {
+  @media only screen and (min-width: $break-small) and (max-width: $break-large) {
     width: 80%;
     margin: 0 auto;
   }

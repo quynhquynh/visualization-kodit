@@ -58,7 +58,7 @@ class App extends Component {
         <div>
           <Form filter={this.handleFilter} />
         </div>
-        <div>
+        <div className="grid-45">
           <PercentagePie balcony={balcony} rooms={rooms} />
           <SimpleArea data={price_loc} />
           <StackedBar data={years} opts={opts} />

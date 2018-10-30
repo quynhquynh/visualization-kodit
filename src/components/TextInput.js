@@ -1,22 +1,13 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
-const Input = ({
-  name,
-  id,
-  className,
-  placeholder,
-  label,
-  value,
-  onChange
-}) => {
+const Input = ({ name, id, className, placeholder, value, onChange }) => {
   if (["min", "max"].includes(placeholder)) {
     const { min, max } = value;
     value = placeholder === "min" ? min : max;
   }
   return (
     <Fragment>
-      {label && <p>{label}</p>}
       <input
         type="text"
         name={name}
