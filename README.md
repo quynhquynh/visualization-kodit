@@ -14,15 +14,15 @@ Pie chart:
 
 Area chart:
 
-Price range of all apartments. Data helps compare price between different places and the lowest/highest price of specific place
+- Price range of all apartments. Data helps compare price between different places and the lowest/highest price of specific place
 
 Bar chart:
 
-Amount of apartments built in different period. Each bar is grouped by options (balcony, terrace, storage, open-kitchen, kitchennette)
+- Amount of apartments built in different period. Each bar is grouped by options (balcony, terrace, storage, open-kitchen, kitchennette)
 
 Line chart:
 
-Relationship between the number of rooms and average price per square meter
+- Relationship between the number of rooms and average price per square meter
 
 ## Deployment
 
