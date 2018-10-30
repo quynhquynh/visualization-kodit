@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 
-const Input = ({ name, id, className, placeholder, value, onChange }) => {
+const Input = ({ name, id, className, placeholder, value, handleChange }) => {
   if (["min", "max"].includes(placeholder)) {
     const { min, max } = value;
     value = placeholder === "min" ? min : max;
@@ -15,7 +15,7 @@ const Input = ({ name, id, className, placeholder, value, onChange }) => {
         className={className && className}
         value={value}
         placeholder={placeholder}
-        onChange={e => onChange(e, className)}
+        onChange={e => handleChange(e, className)}
       />
     </Fragment>
   );
@@ -31,5 +31,5 @@ Input.propTypes = {
   label: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({})])
     .isRequired,
-  onChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired
 };

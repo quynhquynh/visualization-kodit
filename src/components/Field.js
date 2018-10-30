@@ -4,14 +4,19 @@ import PropTypes from "prop-types";
 import TextInput from "./TextInput";
 import Checkbox from "./Checkbox";
 
-const Field = ({ p, arr, value, className, onChange, handleCheck }) => (
+const Field = ({ p, arr, value, className, handleChange, handleCheck }) => (
   <Fragment>
     <p>{p}</p>
     <div className={className && className}>
       {arr.map(
         (item, i) =>
-          onChange ? (
-            <TextInput key={i} {...item} value={value} onChange={onChange} />
+          handleChange ? (
+            <TextInput
+              key={i}
+              {...item}
+              value={value}
+              handleChange={handleChange}
+            />
           ) : (
             <Checkbox key={i} {...item} handleCheck={handleCheck} />
           )
@@ -27,6 +32,6 @@ Field.propTypes = {
   arr: PropTypes.array.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({})]),
   className: PropTypes.string,
-  onChange: PropTypes.func,
+  handleChange: PropTypes.func,
   handleCheck: PropTypes.func
 };

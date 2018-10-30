@@ -66,42 +66,43 @@ class Form extends PureComponent {
   render() {
     const { loc, area, aprt_price, year, rooms, opts } = fields;
     const { location, size_sqm, price } = this.state;
+    const { handleChange, handleCheck } = this;
     const allFields = [
       {
         p: "Location:",
         arr: loc,
         value: location,
-        onChange: this.handleChange
+        handleChange
       },
       {
         p: "Number of rooms:",
         arr: rooms,
         className: "flex",
-        handleCheck: this.handleCheck
+        handleCheck
       },
       {
         p: "Built year:",
         arr: year,
-        handleCheck: this.handleCheck
+        handleCheck
       },
       {
         p: "Area:",
         arr: area,
         className: "grid",
         value: size_sqm,
-        onChange: this.handleChange
+        handleChange
       },
       {
         p: "Price:",
         arr: aprt_price,
         className: "grid",
         value: price,
-        onChange: this.handleChange
+        handleChange
       },
       {
         p: "Other options",
         arr: opts,
-        handleCheck: this.handleCheck
+        handleCheck
       }
     ];
 
