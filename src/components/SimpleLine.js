@@ -21,9 +21,9 @@ const SimpleLine = ({ data }) => (
       margin={{ top: 60, right: 30, left: 15, bottom: 5 }}
     >
       <XAxis dataKey="name" />
-      <YAxis />
+      <YAxis tickFormatter={value => value.toLocaleString()} />
       <CartesianGrid strokeDasharray="3 3" />
-      <Tooltip />
+      <Tooltip formatter={value => value.toFixed(1).toLocaleString()} />
       <Legend wrapperStyle={{ left: "35%" }} />
       <Line
         type="monotone"
