@@ -1,11 +1,11 @@
 import { averagePriceSqm } from "./averagePriceSqm";
 import { visualize } from "./visualize";
 import { filter } from "./filter";
-import { checkEmpty } from "./checkEmpty";
+import { isEmpty } from "./isEmpty";
 
 export default {
   filter,
   averagePriceSqm,
-  checkEmpty,
+  isEmpty,
   visualize
 };

@@ -11,7 +11,7 @@ import StackedBar from "./components/StackedBar";
 import SimpleLine from "./components/SimpleLine";
 import SimpleArea from "./components/SimpleArea";
 
-const { filter, checkEmpty, visualize } = filterFunc;
+const { filter, isEmpty, visualize } = filterFunc;
 
 class App extends Component {
   constructor(props) {
@@ -42,7 +42,7 @@ class App extends Component {
 
   handleFilter = values => {
     const apt = [...this.original];
-    const data = checkEmpty(values) ? apt : filter(apt, values);
+    const data = isEmpty(values) ? apt : filter(apt, values);
     this.setState({
       ...visualize(data, this.state)
     });

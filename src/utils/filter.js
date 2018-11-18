@@ -46,6 +46,8 @@ export const filterRoom = (arr, value) => {
 
 export const filterSize = (arr, value) => {
   let { min, max } = value;
+  console.log("min", min);
+  console.log("max", max);
   min = parseInt(min) || 0;
   max = parseInt(max) || 200;
   return arr.filter(a => a.size_sqm >= min && a.size_sqm <= max);
