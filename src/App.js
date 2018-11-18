@@ -20,7 +20,6 @@ class App extends Component {
       balcony: [],
       rooms: [],
       years: [],
-      price_room: [],
       price_loc: [],
       loading: true
     };
@@ -35,7 +34,6 @@ class App extends Component {
     });
     this.original = [...this.original, ...response.data];
     const { original, state } = this;
-
     this.setState({
       loading: false,
       ...visualize(original, state)
@@ -51,7 +49,7 @@ class App extends Component {
   };
 
   render() {
-    const { balcony, rooms, years, price_room, price_loc } = this.state;
+    const { balcony, rooms, years, price_loc } = this.state;
     const { opts } = fields;
     return (
       <div className="App">
@@ -62,7 +60,7 @@ class App extends Component {
           <PercentagePie balcony={balcony} rooms={rooms} />
           <SimpleArea data={price_loc} />
           <StackedBar data={years} opts={opts} />
-          <SimpleLine data={price_room} />
+          <SimpleLine data={rooms} />
         </div>
       </div>
     );

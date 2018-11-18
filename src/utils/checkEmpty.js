@@ -1,5 +1,3 @@
-import { Object } from "core-js";
-
 export const checkEmpty = obj => {
   const values = Object.values(obj);
   const notEmpty = {};

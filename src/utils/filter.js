@@ -12,23 +12,21 @@ export const filterLoc = (arr, value) => {
   }
 };
 
-export const filterOptions = (arr, res, value) => {
-  arr = res.length ? res : arr;
-  let result = [];
-  for (let val of value) {
-    let filter = [];
-    if (val === "balcony") {
-      filter = arr.filter(a => a.balcony > 0);
-    } else {
-      filter = arr.filter(a => a.description && a.description.includes(val));
-    }
-    result = [...result, ...filter];
-  }
+export const filterOptions = (arr, value) => {
+  const result = value.reduce((allFilters, val) => {
+    const filter = arr.filter(
+      a =>
+        val === "balcony"
+          ? a.balcony
+          : a.description && a.description.includes(val)
+    );
+    allFilters.push(...filter);
+    return allFilters;
+  }, []);
   return result;
 };
 
-export const filterPrice = (arr, res, value) => {
-  arr = res.length ? res : arr;
+export const filterPrice = (arr, value) => {
   let { min, max } = value;
   min = parseInt(min) || 0;
   max = parseInt(max) || Math.pow(10, 7);
@@ -37,26 +35,23 @@ export const filterPrice = (arr, res, value) => {
   );
 };
 
-export const filterRoom = (arr, res, value) => {
-  arr = res.length ? res : arr;
-  let result = [];
-  for (let val of value) {
+export const filterRoom = (arr, value) => {
+  const result = value.reduce((allFilters, val) => {
     const filter = arr.filter(a => a.room_count === parseInt(val));
-    result = [...result, ...filter];
-  }
+    allFilters.push(...filter);
+    return allFilters;
+  }, []);
   return result;
 };
 
-export const filterSize = (arr, res, value) => {
-  arr = res.length ? res : arr;
+export const filterSize = (arr, value) => {
   let { min, max } = value;
   min = parseInt(min) || 0;
   max = parseInt(max) || 200;
   return arr.filter(a => a.size_sqm >= min && a.size_sqm <= max);
 };
 
-export const filterYear = (arr, res, value) => {
-  arr = res.length ? res : arr;
+export const filterYear = (arr, value) => {
   let result = [];
   for (let val of value) {
     const num = parseInt(val);
@@ -82,19 +77,19 @@ export const filter = (arr, obj) => {
     result = filterLoc(arr, location);
   }
   if (size_sqm.min || size_sqm.max) {
-    result = filterSize(arr, result, size_sqm);
+    result = filterSize(result.length ? result : arr, size_sqm);
   }
   if (price.min || price.max) {
-    result = filterPrice(arr, result, price);
+    result = filterPrice(result.length ? result : arr, price);
   }
   if (room_count.length) {
-    result = filterRoom(arr, result, room_count);
+    result = filterRoom(result.length ? result : arr, room_count);
   }
   if (built_year.length) {
-    result = filterYear(arr, result, built_year);
+    result = filterYear(result.length ? result : arr, built_year);
   }
   if (options.length) {
-    result = filterOptions(arr, result, options);
+    result = filterOptions(result.length ? result : arr, options);
   }
   return result;
 };

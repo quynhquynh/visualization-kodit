@@ -5,118 +5,74 @@ import { filterYear } from "./filter";
 import fields from "../fields";
 
 const calcPieChart = (arr, balcony) => {
+  const numBalcony = filterOptions(arr, ["balcony"]).length;
+  const numAll = arr.length;
   const len = balcony.length;
-  const copy_balcony = [...balcony];
-  const num_balcony = filterOptions(arr, [], ["balcony"]).length;
-  const num_original = arr.length;
-  if (!len) {
-    copy_balcony.push({ name: "balcony", value: num_balcony });
-    copy_balcony.push({
-      name: "no balcony",
-      value: num_original - num_balcony
-    });
-  } else {
-    copy_balcony[0].value = filterOptions(arr, [], ["balcony"]).length;
-    copy_balcony[1].value = arr.length - copy_balcony[0].value;
-  }
-  return copy_balcony;
+  const [bal, noBal] = len
+    ? [{ ...balcony[0] }, { ...balcony[1] }]
+    : [{ name: "balcony" }, { name: "no balcony" }];
+  bal.value = numBalcony;
+  noBal.value = numAll - numBalcony;
+  return len ? [bal, noBal] : [...balcony, bal, noBal];
 };
 
-const calcPieLineChart = (arr, rooms, price_room) => {
-  const rlen = rooms.length;
-  const copy_rooms = [...rooms];
-  const copy_price_room = [...price_room];
-  for (let i = 1; i < 6; i++) {
-    const room_arr = filterRoom(arr, [], [i]);
-    const len = room_arr.length;
-    if (rlen) {
-      copy_rooms[i - 1].value = len;
-      copy_price_room[i - 1].price_sqm = averagePriceSqm(room_arr);
-    } else {
-      copy_rooms.push({
-        name: `#${i} room(s)`,
-        value: len
-      });
-      copy_price_room.push({
-        name: `#${i} room(s)`,
-        price_sqm: averagePriceSqm(room_arr)
-      });
-    }
-  }
-  return {
-    copy_rooms,
-    copy_price_room
-  };
+const calcPieLineChart = (arr, data) => {
+  const rlen = data.length;
+  const { rooms } = fields;
+  const roomData = rooms.map((room, i) => {
+    const roomCountGroup = filterRoom(arr, [i + 1]);
+    const len = roomCountGroup.length;
+    const dataWithRoomCount = rlen
+      ? { ...data[i] }
+      : { name: `#${i + 1} room(s)` };
+    dataWithRoomCount.value = len;
+    dataWithRoomCount.price_sqm = averagePriceSqm(roomCountGroup);
+    return dataWithRoomCount;
+  });
+  return rlen ? roomData : [...data, ...roomData];
 };
 
-const calcBarChart = (arr, years, fields) => {
-  const len = years.length;
-  const copy_years = [...years];
+const calcBarChart = (arr, years) => {
   const { year, opts } = fields;
-  for (let i = 0; i < year.length; i++) {
-    const yearly = filterYear(arr, [], [year[i].id]);
-    if (len) {
-      const single_year = copy_years[i];
-      for (let opt of opts) {
-        const { id } = opt;
-        single_year[id] = filterOptions(yearly, [], [id]).length;
-      }
-    } else {
-      const obj = {
-        name: year[i].label
-      };
-      for (let opt of opts) {
-        const { id } = opt;
-        obj[id] = filterOptions(yearly, [], [id]).length;
-      }
-      copy_years.push(obj);
-    }
-  }
-  return copy_years;
+  const len = years.length;
+  const yearsWithOptions = year.map((y, i) => {
+    const yearly = filterYear(arr, [y.id]);
+    const singleYear = len ? { ...years[i] } : { name: y.label };
+    opts.map(({ id }) => (singleYear[id] = filterOptions(yearly, [id]).length));
+    return singleYear;
+  });
+  return len ? yearsWithOptions : [...years, ...yearsWithOptions];
 };
 
 const calcAreaChart = (arr, price_loc) => {
-  const len = price_loc.length;
-  const copy_price_loc = [...price_loc];
   const seen = {};
-  for (let apt of arr) {
-    const { street, street_number, price_sqm, size_sqm } = apt;
+  arr.map(loc => {
+    const { street, street_number, price_sqm, size_sqm } = loc;
     const name = `${street} ${street_number}`;
     const price = Math.round(size_sqm * price_sqm);
     if (!seen.hasOwnProperty(name)) {
       seen[name] = [];
     }
-    seen[name].push(price);
-  }
-  const vals = Object.values(seen);
+    return seen[name].push(price);
+  });
   const keys = Object.keys(seen);
-  if (len) {
-    copy_price_loc.length = 0;
-  }
-  for (let i = 0; i < vals.length; i++) {
-    const max_price = Math.max(...vals[i]);
-    const min_price = Math.min(...vals[i]);
-    copy_price_loc.push({
-      name: keys[i],
-      min_price,
-      max_price
-    });
-  }
-  return copy_price_loc;
+  const vals = Object.values(seen);
+  const len = price_loc.length;
+  const locWithPriceRange = vals.map((val, i) => {
+    const singleLoc = len ? { ...price_loc[i] } : { name: keys[i] };
+    singleLoc.max_price = Math.max(...val);
+    singleLoc.min_price = Math.min(...val);
+    return singleLoc;
+  });
+  return len ? locWithPriceRange : [...price_loc, ...locWithPriceRange];
 };
 
 export const visualize = (arr, state) => {
-  const { balcony, rooms, years, price_room, price_loc } = state;
-  const { copy_rooms, copy_price_room } = calcPieLineChart(
-    arr,
-    rooms,
-    price_room
-  );
+  const { balcony, rooms, years, price_loc } = state;
   return {
     balcony: calcPieChart(arr, balcony),
-    rooms: copy_rooms,
-    price_room: copy_price_room,
-    years: calcBarChart(arr, years, fields),
+    rooms: calcPieLineChart(arr, rooms),
+    years: calcBarChart(arr, years),
     price_loc: calcAreaChart(arr, price_loc)
   };
 };
